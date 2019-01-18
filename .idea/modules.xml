@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array01/Array01.iml" filepath="$PROJECT_DIR$/Arrays/Array01/Array01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array02/Array02.iml" filepath="$PROJECT_DIR$/Arrays/Array02/Array02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array03/Array03.iml" filepath="$PROJECT_DIR$/Arrays/Array03/Array03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array04/Array04.iml" filepath="$PROJECT_DIR$/Arrays/Array04/Array04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array05/Array05.iml" filepath="$PROJECT_DIR$/Arrays/Array05/Array05.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array06/Array06.iml" filepath="$PROJECT_DIR$/Arrays/Array06/Array06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array07/Array07.iml" filepath="$PROJECT_DIR$/Arrays/Array07/Array07.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array08/Array08.iml" filepath="$PROJECT_DIR$/Arrays/Array08/Array08.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array09/Array09.iml" filepath="$PROJECT_DIR$/Arrays/Array09/Array09.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array10/Array10.iml" filepath="$PROJECT_DIR$/Arrays/Array10/Array10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array11/Array11.iml" filepath="$PROJECT_DIR$/Arrays/Array11/Array11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array12/Array12.iml" filepath="$PROJECT_DIR$/Arrays/Array12/Array12.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array13/Array13.iml" filepath="$PROJECT_DIR$/Arrays/Array13/Array13.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array201/Array201.iml" filepath="$PROJECT_DIR$/Arrays/Array201/Array201.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array202/Array202.iml" filepath="$PROJECT_DIR$/Arrays/Array202/Array202.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array203/Array203.iml" filepath="$PROJECT_DIR$/Arrays/Array203/Array203.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array204/Array204.iml" filepath="$PROJECT_DIR$/Arrays/Array204/Array204.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Array205/Array205.iml" filepath="$PROJECT_DIR$/Arrays/Array205/Array205.iml" />
+    </modules>
+  </component>
+</project>
