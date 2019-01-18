@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Arrays" pattern="src[Array01]:Array01||src[Array02]:Array02_v1||src[Array02]:Array02_v2||src[Array02]:Array02_v3||src[Array03]:Array03||src[Array04]:Array04||src[Array05]:Array05||src[Array06]:Array06||src[Array06]:Array06_v2||src[Array06]:MisMetodos||src[Array07]:Array07||src[Array07]:MisMetodos||src[Array08]:Array08||src[Array08]:Array08_POO||src[Array08]:Array08_POO_v2||src[Array08]:ArrayContador||src[Array09]:Array09||src[Array09]:Array09_POO||src[Array09]:ArrayContador||src[Array12]:Array12_POO||src[Array12]:Corredores||src[Array201]:Array201||src[Array202]:Array202||src[Array203]:Array203||src[Array204]:Array204||src[Array205]:Array205" />
+</component>
