@@ -28,6 +28,6 @@ public class PedirCita_v1 {
 				check++;
 			}
 		}while(check == 0);
+		teclado.close();
 	}
-
 }
