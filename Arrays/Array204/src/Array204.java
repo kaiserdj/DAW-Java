@@ -3,7 +3,7 @@
 import java.util.*;
 
 public class Array204 {
-	
+
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner(System.in);
 		int[][] tabla = new int[12][31];
@@ -39,7 +39,6 @@ public class Array204 {
 			}
 			System.out.print("\n");
 		}while(x!='N');
-		
 		teclado.close();
 	}
 
@@ -52,7 +51,6 @@ public class Array204 {
 			mes = teclado.nextInt();
 			teclado.nextLine();
 		}while(mes>12||mes<1);
-		teclado.close();
 		return mes-1;
 	}
 	
@@ -88,7 +86,6 @@ public class Array204 {
 				teclado.nextLine();
 				break;
 			}
-		teclado.close();
 		return dia-1;
 	}
 }
