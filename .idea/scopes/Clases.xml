@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Clases" pattern="src[Reparto de cartas]:Programa" />
+</component>

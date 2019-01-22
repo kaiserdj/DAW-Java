@@ -18,8 +18,15 @@ public class Programa {
 				System.out.print("Introduce el NIF: ");
 				nif = teclado.nextInt();
 				length = String.valueOf(nif).length();
-			}while(length!=8);
-			letra = GenLetra(nif);
+
+				System.out.print("Introduce la letra: ");
+				teclado.nextLine();
+				letra = teclado.next().charAt(0);
+				letra = Character.toUpperCase(letra);
+				if(letra!=Nif.GenLetra(nif)){
+					System.out.println("Por favor compruebe su NIF y letra.");
+				}
+			}while(length!=8 && letra!=Nif.GenLetra(nif));
 			Nif NIF = new Nif(nif, letra);
 
 			System.out.print("Introduce el nombre: ");
@@ -40,7 +47,7 @@ public class Programa {
 				año = teclado.nextInt();
 			}while(año<0);
 
-			fecha.set(año, (mes - 1), dia);
+			fecha = new GregorianCalendar(año, (mes - 1), dia);
 
 			clase[i] = new Alumno(NIF, nombre, fecha);
 			System.out.print("\n");
@@ -53,12 +60,6 @@ public class Programa {
 		}
 
 		teclado.close();
-	}
-
-	public static char GenLetra(int nif){
-		int dni = nif%23;
-		char[] letra = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
-	return letra[dni];
 	}
 
 }
