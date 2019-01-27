@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="Clases" pattern="src[Reparto de cartas]:Programa" />
+  <scope name="Clases" pattern="src[Reparto de cartas]:Programa||src[Siete y medio]:Baraja||src[Siete y medio]:NaipeEspañola||src[Siete y medio]:Main||src[Reparto de cartas]:NaipeEspañola||src[Reparto de cartas]:Pruebas||src[Reparto de cartas]:Baraja" />
 </component>
