@@ -27,6 +27,18 @@ public class NaipeEspañola {
 
     @Override
     public String toString() {
-        return "[" + Integer.toString(numero) + ", " + palo + ", " + Float.toString(valor) + ", " + Boolean.toString(reparto) + "]";
+        if(numero==10){
+            return "Sota de " + palo;
+        }
+        if (numero == 11) {
+            return "Caballo de " + palo;
+        }
+        if (numero == 12){
+            return "Rey de " + palo;
+        }
+        if (numero == 1){
+            return  "As de " + palo;
+        }
+        return Integer.toString(numero) + " de " + palo;
     }
 }
