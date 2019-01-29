@@ -42,22 +42,23 @@ public class Baraja {
     }
 
     public NaipeEspañola Random(){
-        int check=0;
-        int total = baraja.length;
-        NaipeEspañola carta = null;
-        if(mazo!=0) {
-            do {
-                int num = (int) (Math.random() * total);
-                if (baraja[num].getReparto() == false) {
-                    baraja[num].setReparto(true);
-                    check = 1;
-                    carta = baraja[num];
-                    mazo--;
-                }
-            } while (check == 0);
-            return carta;
+        int[] checker = new int[baraja.length];
+        int x = 0;
+
+        for(int i=0;i<baraja.length;i++){
+            if(baraja[i].getReparto()==false){
+                checker[x]=i;
+                x++;
+            }
         }
-        return null;
+        int num = (int) (Math.random() * x);
+        num = checker[num];
+        baraja[num].setReparto(true);
+        mazo--;
+        if(x==0){
+            return null;
+        }
+        return baraja[num];
     }
 
     public void Mezclar(){
