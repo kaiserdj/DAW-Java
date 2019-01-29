@@ -39,6 +39,6 @@ public class NaipeEspañola {
         if (numero == 1){
             return  "As de " + palo;
         }
-        return Integer.toString(numero) + " de " + palo;
+        return numero + " de " + palo;
     }
 }
