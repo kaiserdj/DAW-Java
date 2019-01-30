@@ -96,6 +96,11 @@ public class Main {
                         System.exit(0);
                     }else{
                         ronda=false;
+                        B=2;
+                        x=0;
+                        Baraja = new Baraja();
+                        jugadores.quitarCartas();
+                        limpiar();
                     }
                 } else {
                     System.out.println("------------------------------");
@@ -106,6 +111,24 @@ public class Main {
                     if (jugadores.getDineroJugador(0) <= 0) {
                         System.out.println("Oh no, te arruinaste.");
                         System.exit(0);
+                    }
+                    do {
+                        System.out.print("Tienes " + jugadores.getDineroJugador(0) + "€. ¿Te plantas(s/n)?: ");
+                        opcion = teclado.next().charAt(0);
+                        opcion = Character.toUpperCase(opcion);
+                        if (opcion != 'S' && opcion != 'N') {
+                            System.out.print("Porfavor introduzca s/n");
+                        }
+                    } while (opcion != 'S' && opcion != 'N');
+                    if (opcion == 'S') {
+                        System.exit(0);
+                    }else{
+                        ronda=false;
+                        B=2;
+                        x=0;
+                        Baraja = new Baraja();
+                        jugadores.quitarCartas();
+                        limpiar();
                     }
                 }
             }
