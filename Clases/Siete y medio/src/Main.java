@@ -9,7 +9,7 @@ public class Main {
         char opcion = '#';
         float apuesta = 0;
         Boolean ronda = true;
-        int jug=0,x = 0;
+        int jug = 0, x = 0, banca = 0;
 
         System.out.println("Configuración inicial");
         do {
@@ -22,21 +22,22 @@ public class Main {
         do {
             System.out.print("Cuantos jugadores jugaran maximo 7 (sin incluir la banca): ");
             jug = teclado.nextInt();
-            if (jug <= 0||jug>7) {
+            if (jug <= 0 || jug > 7) {
                 System.out.print("Porfavor introducta un numero entre 1-7");
             }
-        } while (jug <= 0||jug>7);
+        } while (jug <= 0 || jug > 7);
         Jugadores jugadores = new Jugadores((jug + 1), apuesta);
+        banca = jugadores.getJugadores();
 
         limpiar();
 
         System.out.println("El juego de las siete y media comienza");
-        for(;;) {
-            for(int i=0;i<jugadores.getJugadores();i++) {
-                if(jugadores.getDineroJugador(i)>0) {
+        for (; ; ) {
+            for (int i = 0; i < jugadores.getJugadores(); i++) {
+                if (jugadores.getDineroJugador(i) > 0) {
                     x = 0;
-                    System.out.println("Juegas el jugador " + i + ":");
-                    System.out.println("Tienes " + jugadores.getDineroJugador(i)+1 + "€");
+                    System.out.println("Juegas el jugador " + (i+1) + ":");
+                    System.out.println("Tienes " + jugadores.getDineroJugador(i) + "€");
                     System.out.println("-----------------------------------------------------------");
 
                     for (int B = 0; B <= 1; ) {
@@ -115,72 +116,45 @@ public class Main {
                 }
             }
             System.out.println();
-            if(ronda==true) {
-                System.out.println("\nJuega la banca:");
-                System.out.println("-----------------------------------------------------------");
-                x = 0;
-                for (int B = 0; B <= 1; ) {
-                    jugadores.añadir(1, Baraja.Random(), false);
-                    x++;
-                    System.out.println("        " + jugadores.getCartaJugador(1, (x - 1)).toString());
-                    if (jugadores.getPuntosJugador(1) < 7.5f) {
-                        if ((jugadores.getPuntosVisibleJugador(0) < 6 && jugadores.getPuntosJugador(1) >= 6) || (jugadores.getPuntosVisibleJugador(0) >= 6 && jugadores.getPuntosJugador(1) >= (jugadores.getPuntosVisibleJugador(0) + 0.5f))) {
-                            if (jugadores.getPuntosJugador(0) > jugadores.getPuntosJugador(1)) {
-                                System.out.println("------------------------------");
-                                System.out.println("--      La banca pierde     --");
-                                System.out.println("--         Has ganado       --");
-                                System.out.println("------------------------------");
-                                jugadores.añadirDineroJugador(0,apuesta);
-                                do {
-                                    System.out.print("Tienes " + jugadores.getDineroJugador(0) + "€. ¿Te plantas(s/n)?: ");
-                                    opcion = teclado.next().charAt(0);
-                                    opcion = Character.toUpperCase(opcion);
-                                    if (opcion != 'S' && opcion != 'N') {
-                                        System.out.print("Porfavor introduzca s/n");
-                                    }
-                                } while (opcion != 'S' && opcion != 'N');
-                                if (opcion == 'S') {
-                                    System.exit(0);
+            System.out.println("\nJuega la banca:");
+            System.out.println("-----------------------------------------------------------");
+            x = 0;
+            for (int B = 0; B <= 1; ) {
+                jugadores.añadir(banca, Baraja.Random(), false);
+                System.out.println("        " + jugadores.getCartaJugador(banca, x).toString());
+                x++;
+                if (jugadores.getPuntosJugador(banca) < 7.5f) {
+                    int apuesta_favor = 0;
+                    int apuesta_contra = 0;
+                    for (int i = 0; i < jugadores.getJugadores(); i++) {
+                        if ((jugadores.getPuntosVisibleJugador(i) < 6 && jugadores.getPuntosJugador(banca) >= 6) || (jugadores.getPuntosVisibleJugador(i) >= 6 && jugadores.getPuntosJugador(banca) >= (jugadores.getPuntosVisibleJugador(i) + 0.5f))) {
+                            apuesta_contra++;
+                        } else {
+                            apuesta_favor++;
+                        }
+                    }
+                    if (apuesta_favor < apuesta_contra) {
+                        System.out.println("\n-----------------------------------------------------------");
+                        System.out.println("Resultados: ");
+                        for (int i = 0; i < jugadores.getJugadores(); i++) {
+                            if(jugadores.getPuntosJugador(i)<7.5f){
+                                if(jugadores.getPuntosJugador(i)>jugadores.getPuntosJugador(banca)){
+                                    jugadores.añadirDineroJugador(i,jugadores.getApuesta(i));
+                                    System.out.println("El jugador " + (i+1) + " - Gana a la banca");
+                                    System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
                                 }else{
-                                    B=2;
-                                }
-                            } else {
-                                System.out.println("------------------------------");
-                                System.out.println("--       La banca gana      --");
-                                System.out.println("--        Has perdido       --");
-                                System.out.println("------------------------------");
-                                jugadores.quitarDineroJugador(0,apuesta);
-                                if (jugadores.getDineroJugador(0) <= 0) {
-                                    System.out.println("Oh no, te arruinaste.");
-                                    System.exit(0);
-                                }
-                                do {
-                                    System.out.print("Tienes " + jugadores.getDineroJugador(0) + "€. ¿Te plantas(s/n)?: ");
-                                    opcion = teclado.next().charAt(0);
-                                    opcion = Character.toUpperCase(opcion);
-                                    if (opcion != 'S' && opcion != 'N') {
-                                        System.out.print("Porfavor introduzca s/n");
+                                    jugadores.quitarDineroJugador(i,jugadores.getApuesta(i));
+                                    System.out.println("El jugador " + (i+1) + " - Pierde contra la banca");
+                                    if(jugadores.getDineroJugador(i)!=0) {
+                                        System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                                    }else {
+                                        System.out.println("    Ohhh no, te has arruinado.");
                                     }
-                                } while (opcion != 'S' && opcion != 'N');
-                                if (opcion == 'S') {
-                                    System.exit(0);
-                                }else{
-                                    B=2;
                                 }
                             }
                         }
-                    } else if (jugadores.getPuntosJugador(1) == 7.5f) {
-                        System.out.println("------------------------------");
-                        System.out.println("--       La banca gana      --");
-                        System.out.println("--        Has perdido       --");
-                        System.out.println("------------------------------");
-                        jugadores.quitarDineroJugador(0,apuesta);
-                        if (jugadores.getDineroJugador(0) <= 0) {
-                            System.out.println("Oh no, te arruinaste.");
-                            System.exit(0);
-                        }
                         do {
-                            System.out.print("Tienes " + jugadores.getDineroJugador(0) + "€. ¿Te plantas(s/n)?: ");
+                            System.out.print("¿Desean seguir jugando (s/n)?: ");
                             opcion = teclado.next().charAt(0);
                             opcion = Character.toUpperCase(opcion);
                             if (opcion != 'S' && opcion != 'N') {
@@ -188,41 +162,72 @@ public class Main {
                             }
                         } while (opcion != 'S' && opcion != 'N');
                         if (opcion == 'S') {
+                            B = 2;
+                        } else {
                             System.exit(0);
-                        }else{
-                            B=2;
                         }
+                    }
+                } else if (jugadores.getPuntosJugador(1) == 7.5f) {
+                    System.out.println("------------------------------");
+                    System.out.println("--       La banca gana      --");
+                    System.out.println("--        Han perdido       --");
+                    System.out.println("------------------------------");
+                    for (int i = 0; i < jugadores.getJugadores(); i++) {
+                        jugadores.quitarDineroJugador(i,jugadores.getApuesta(i));
+                        System.out.println("El jugador " + (i+1) + " - Pierde contra la banca");
+                        if(jugadores.getDineroJugador(i)!=0) {
+                            System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                        }else {
+                            System.out.println("    Ohhh no, te has arruinado.");
+                        }
+                    }
+                    do {
+                        System.out.print("¿Desean seguir jugando (s/n)?: ");
+                        opcion = teclado.next().charAt(0);
+                        opcion = Character.toUpperCase(opcion);
+                        if (opcion != 'S' && opcion != 'N') {
+                            System.out.print("Porfavor introduzca s/n");
+                        }
+                    } while (opcion != 'S' && opcion != 'N');
+                    if (opcion == 'S') {
+                        B = 2;
                     } else {
-                        System.out.println("------------------------------");
-                        System.out.println("--      La banca pierde     --");
-                        System.out.println("--         Has ganado       --");
-                        System.out.println("------------------------------");
-                        jugadores.añadirDineroJugador(0,apuesta);
-                        do {
-                            System.out.print("Tienes " + jugadores.getDineroJugador(0) + "€. ¿Te plantas(s/n)?: ");
-                            opcion = teclado.next().charAt(0);
-                            opcion = Character.toUpperCase(opcion);
-                            if (opcion != 'S' && opcion != 'N') {
-                                System.out.print("Porfavor introduzca s/n");
-                            }
-                        } while (opcion != 'S' && opcion != 'N');
-                        if (opcion == 'S') {
-                            System.exit(0);
-                        }else{
-                            B=2;
+                        System.exit(0);
+                    }
+                } else {
+                    System.out.println("------------------------------");
+                    System.out.println("--      La banca pierde     --");
+                    System.out.println("--         Han ganado       --");
+                    System.out.println("------------------------------");
+                    for (int i = 0; i < jugadores.getJugadores(); i++) {
+                        jugadores.añadirDineroJugador(i,jugadores.getApuesta(i));
+                        System.out.println("El jugador " + (i+1) + " - Gana a la banca");
+                        System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                    }
+                    do {
+                        System.out.print("¿Desean seguir jugando (s/n)?: ");
+                        opcion = teclado.next().charAt(0);
+                        opcion = Character.toUpperCase(opcion);
+                        if (opcion != 'S' && opcion != 'N') {
+                            System.out.print("Porfavor introduzca s/n");
                         }
+                    } while (opcion != 'S' && opcion != 'N');
+                    if (opcion == 'S') {
+                        B = 2;
+                    } else {
+                        System.exit(0);
                     }
                 }
             }
-            x=0;
+            x = 0;
             Baraja = new Baraja();
             jugadores.quitarCartas();
             limpiar();
         }
     }
 
-    public static void limpiar(){
-        for(int i=0;i<25;i++){
+    public static void limpiar() {
+        for (int i = 0; i < 25; i++) {
             System.out.println();
         }
     }
