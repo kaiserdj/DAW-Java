@@ -135,9 +135,9 @@ public class Main {
                     }
                     if (apuesta_favor < apuesta_contra) {
                         System.out.println("\n-----------------------------------------------------------");
-                        System.out.println("Resultados: ");
+                        System.out.println("Resultados: \n");
                         for (int i = 0; i < jugadores.getJugadores(); i++) {
-                            if(jugadores.getPuntosJugador(i)<7.5f){
+                            if(jugadores.getPuntosJugador(i)<=7.5f){
                                 if(jugadores.getPuntosJugador(i)>jugadores.getPuntosJugador(banca)){
                                     jugadores.añadirDineroJugador(i,jugadores.getApuesta(i));
                                     System.out.println("El jugador " + (i+1) + " - Gana a la banca");
@@ -150,6 +150,14 @@ public class Main {
                                     }else {
                                         System.out.println("    Ohhh no, te has arruinado.");
                                     }
+                                }
+                            }else{
+                                jugadores.quitarDineroJugador(i,jugadores.getApuesta(i));
+                                System.out.println("El jugador " + (i+1) + " - Pierde, se paso de 7,5");
+                                if(jugadores.getDineroJugador(i)!=0) {
+                                    System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                                }else {
+                                    System.out.println("    Ohhh no, te has arruinado.");
                                 }
                             }
                         }
@@ -167,9 +175,10 @@ public class Main {
                             System.exit(0);
                         }
                     }
-                } else if (jugadores.getPuntosJugador(1) == 7.5f) {
+                } else if (jugadores.getPuntosJugador(banca) == 7.5f) {
                     System.out.println("------------------------------");
                     System.out.println("--       La banca gana      --");
+                    System.out.println("--       Consiguio 7.5      --");
                     System.out.println("--        Han perdido       --");
                     System.out.println("------------------------------");
                     for (int i = 0; i < jugadores.getJugadores(); i++) {
@@ -197,12 +206,23 @@ public class Main {
                 } else {
                     System.out.println("------------------------------");
                     System.out.println("--      La banca pierde     --");
+                    System.out.println("--      Se paso de 7.5      --");
                     System.out.println("--         Han ganado       --");
                     System.out.println("------------------------------");
                     for (int i = 0; i < jugadores.getJugadores(); i++) {
-                        jugadores.añadirDineroJugador(i,jugadores.getApuesta(i));
-                        System.out.println("El jugador " + (i+1) + " - Gana a la banca");
-                        System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                        if(jugadores.getApuesta(i)>7.5f) {
+                            jugadores.añadirDineroJugador(i, jugadores.getApuesta(i));
+                            System.out.println("El jugador " + (i + 1) + " - Gana a la banca");
+                            System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                        }else{
+                            jugadores.quitarDineroJugador(i,jugadores.getApuesta(i));
+                            System.out.println("El jugador " + (i+1) + " - Pierde, se paso de 7,5");
+                            if(jugadores.getDineroJugador(i)!=0) {
+                                System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                            }else {
+                                System.out.println("    Ohhh no, te has arruinado.");
+                            }
+                        }
                     }
                     do {
                         System.out.print("¿Desean seguir jugando (s/n)?: ");
