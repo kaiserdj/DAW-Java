@@ -7,7 +7,7 @@ public class Jugadores {
     private NaipeEspañola[][] cartas;
     private Boolean[][] ocultas;
     private int[] numCartas;
-    private float[] dinero;
+    private float[] dinero, apuesta;
 
     //Constructor
     public Jugadores(int jugadores, float dinero){
@@ -15,6 +15,7 @@ public class Jugadores {
         this.ocultas = new Boolean[jugadores][40];
         this.numCartas = new int[jugadores];
         this.dinero = new float[jugadores];
+        this.apuesta = new float[jugadores];
         Arrays.fill(this.dinero, dinero);
         Arrays.fill(numCartas, 0);
     }
@@ -34,6 +35,10 @@ public class Jugadores {
     public void setOcultas(int jugador, int carta, boolean estado) {
         ocultas[jugador][carta] = estado;
     }
+
+    public void setApuesta(int jugador, float apuesta){ this.apuesta[jugador]=apuesta; }
+
+    public float getApuesta(int jugador){ return apuesta[jugador]; }
 
     public float getPuntosJugador(int jugador){
         float valor = 0.0f;
@@ -72,6 +77,8 @@ public class Jugadores {
     }
 
     public Boolean getOcultas(int jugador, int carta) {return ocultas[jugador][carta];}
+
+    public int getJugadores(){return (cartas.length-1);}
 
     public float getDineroJugador(int jugador){ return dinero[jugador];}
 
