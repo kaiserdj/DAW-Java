@@ -16,14 +16,14 @@ public class Main {
             System.out.print("Con cuanto dinero desea jugar (Si desea añadir centimos pon  el numero con , ): ");
             apuesta = teclado.nextFloat();
             if (apuesta <= 0) {
-                System.out.print("Porfavor introducta una catindad mayor a cero");
+                System.out.println("Porfavor introducta una catindad mayor a cero");
             }
         } while (apuesta <= 0);
         do {
             System.out.print("Cuantos jugadores jugaran maximo 7 (sin incluir la banca): ");
             jug = teclado.nextInt();
             if (jug <= 0 || jug > 7) {
-                System.out.print("Porfavor introducta un numero entre 1-7");
+                System.out.println("Porfavor introducta un numero entre 1-7");
             }
         } while (jug <= 0 || jug > 7);
         Jugadores jugadores = new Jugadores((jug + 1), apuesta);
@@ -33,6 +33,17 @@ public class Main {
 
         System.out.println("El juego de las siete y media comienza");
         for (; ; ) {
+            int sin_dinero=0;
+            for (int i = 0; i < jugadores.getJugadores(); i++) {
+                if(jugadores.getDineroJugador(i)==0){
+                    sin_dinero++;
+                }
+                if(sin_dinero==jugadores.getJugadores()){
+                    System.out.println("Todos los jugadores se han arruindado.");
+                    System.out.print("Se acabo el juego.");
+                    System.exit(0);
+                }
+            }
             for (int i = 0; i < jugadores.getJugadores(); i++) {
                 if (jugadores.getDineroJugador(i) > 0) {
                     x = 0;
@@ -50,7 +61,7 @@ public class Main {
                                 apuesta = teclado.nextFloat();
                                 jugadores.setApuesta(i, apuesta);
                                 if (apuesta <= 0 || jugadores.getDineroJugador(i) < apuesta) {
-                                    System.out.print("Porfavor introducta una catindad que tenga y mayor que 0");
+                                    System.out.println("Porfavor introducta una catindad que tenga y mayor que 0");
                                 }
                             } while (apuesta <= 0 || jugadores.getDineroJugador(i) < apuesta);
                         } else {
@@ -63,7 +74,7 @@ public class Main {
                                 opcion = teclado.next().charAt(0);
                                 opcion = Character.toUpperCase(opcion);
                                 if (opcion != 'S' && opcion != 'N') {
-                                    System.out.print("Porfavor introduzca s/n");
+                                    System.out.println("Porfavor introduzca s/n");
                                 }
                             } while (opcion != 'S' && opcion != 'N');
                             if (opcion == 'S') {
@@ -84,7 +95,7 @@ public class Main {
                                 opcion = teclado.next().charAt(0);
                                 opcion = Character.toUpperCase(opcion);
                                 if (opcion != 'S' && opcion != 'N') {
-                                    System.out.print("Porfavor introduzca s/n");
+                                    System.out.println("Porfavor introduzca s/n");
                                 }
                             } while (opcion != 'S' && opcion != 'N');
                             if (opcion == 'S') {
@@ -137,28 +148,32 @@ public class Main {
                         System.out.println("\n-----------------------------------------------------------");
                         System.out.println("Resultados: \n");
                         for (int i = 0; i < jugadores.getJugadores(); i++) {
-                            if(jugadores.getPuntosJugador(i)<=7.5f){
-                                if(jugadores.getPuntosJugador(i)>jugadores.getPuntosJugador(banca)){
-                                    jugadores.añadirDineroJugador(i,jugadores.getApuesta(i));
-                                    System.out.println("El jugador " + (i+1) + " - Gana a la banca");
-                                    System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
-                                }else{
-                                    jugadores.quitarDineroJugador(i,jugadores.getApuesta(i));
-                                    System.out.println("El jugador " + (i+1) + " - Pierde contra la banca");
-                                    if(jugadores.getDineroJugador(i)!=0) {
+                            if(jugadores.getDineroJugador(i)!=0) {
+                                if (jugadores.getPuntosJugador(i) <= 7.5f) {
+                                    if (jugadores.getPuntosJugador(i) > jugadores.getPuntosJugador(banca)) {
+                                        jugadores.añadirDineroJugador(i, jugadores.getApuesta(i));
+                                        System.out.println("El jugador " + (i + 1) + " - Gana a la banca");
                                         System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
-                                    }else {
+                                    } else {
+                                        jugadores.quitarDineroJugador(i, jugadores.getApuesta(i));
+                                        System.out.println("El jugador " + (i + 1) + " - Pierde contra la banca");
+                                        if (jugadores.getDineroJugador(i) != 0) {
+                                            System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                                        } else {
+                                            System.out.println("    Ohhh no, te has arruinado.");
+                                        }
+                                    }
+                                } else {
+                                    jugadores.quitarDineroJugador(i, jugadores.getApuesta(i));
+                                    System.out.println("El jugador " + (i + 1) + " - Pierde, se paso de 7,5");
+                                    if (jugadores.getDineroJugador(i) != 0) {
+                                        System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                                    } else {
                                         System.out.println("    Ohhh no, te has arruinado.");
                                     }
                                 }
                             }else{
-                                jugadores.quitarDineroJugador(i,jugadores.getApuesta(i));
-                                System.out.println("El jugador " + (i+1) + " - Pierde, se paso de 7,5");
-                                if(jugadores.getDineroJugador(i)!=0) {
-                                    System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
-                                }else {
-                                    System.out.println("    Ohhh no, te has arruinado.");
-                                }
+                                System.out.println("El jugador " + (i + 1) + " - Esta arruinado");
                             }
                         }
                         do {
@@ -182,12 +197,16 @@ public class Main {
                     System.out.println("--        Han perdido       --");
                     System.out.println("------------------------------");
                     for (int i = 0; i < jugadores.getJugadores(); i++) {
-                        jugadores.quitarDineroJugador(i,jugadores.getApuesta(i));
-                        System.out.println("El jugador " + (i+1) + " - Pierde contra la banca");
                         if(jugadores.getDineroJugador(i)!=0) {
-                            System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
-                        }else {
-                            System.out.println("    Ohhh no, te has arruinado.");
+                            jugadores.quitarDineroJugador(i, jugadores.getApuesta(i));
+                            System.out.println("El jugador " + (i + 1) + " - Pierde contra la banca");
+                            if (jugadores.getDineroJugador(i) != 0) {
+                                System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                            } else {
+                                System.out.println("    Ohhh no, te has arruinado.");
+                            }
+                        }else{
+                            System.out.println("El jugador " + (i + 1) + " - Esta arruinado");
                         }
                     }
                     do {
@@ -210,18 +229,22 @@ public class Main {
                     System.out.println("--         Han ganado       --");
                     System.out.println("------------------------------");
                     for (int i = 0; i < jugadores.getJugadores(); i++) {
-                        if(jugadores.getApuesta(i)>7.5f) {
-                            jugadores.añadirDineroJugador(i, jugadores.getApuesta(i));
-                            System.out.println("El jugador " + (i + 1) + " - Gana a la banca");
-                            System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
-                        }else{
-                            jugadores.quitarDineroJugador(i,jugadores.getApuesta(i));
-                            System.out.println("El jugador " + (i+1) + " - Pierde, se paso de 7,5");
-                            if(jugadores.getDineroJugador(i)!=0) {
+                        if(jugadores.getDineroJugador(i)!=0) {
+                            if (jugadores.getApuesta(i) > 7.5f) {
+                                jugadores.añadirDineroJugador(i, jugadores.getApuesta(i));
+                                System.out.println("El jugador " + (i + 1) + " - Gana a la banca");
                                 System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
-                            }else {
-                                System.out.println("    Ohhh no, te has arruinado.");
+                            } else {
+                                jugadores.quitarDineroJugador(i, jugadores.getApuesta(i));
+                                System.out.println("El jugador " + (i + 1) + " - Pierde, se paso de 7,5");
+                                if (jugadores.getDineroJugador(i) != 0) {
+                                    System.out.println("    Tiene " + jugadores.getDineroJugador(i) + "€");
+                                } else {
+                                    System.out.println("    Ohhh no, te has arruinado.");
+                                }
                             }
+                        }else{
+                            System.out.println("El jugador " + (i + 1) + " - Esta arruinado");
                         }
                     }
                     do {
